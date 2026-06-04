@@ -9,13 +9,7 @@ let allOffersLength=null;
 async function setOffers(filterParams = {}) {
     let offerResp = await getData(OFFER_URL + getOfferFilter(filterParams));
     if (offerResp.ok) {
-        if (Array.isArray(offerResp.data)) {
-            currentOffers = offerResp.data;
-            allOffersLength = offerResp.data.length;
-        } else {
-            allOffersLength = offerResp.data.count;
-            currentOffers = offerResp.data.results;
-        }
+        setCurrentOffersFromResponse(offerResp.data);
         await setOfferDetails();
     }
     return offerResp;
@@ -24,15 +18,20 @@ async function setOffers(filterParams = {}) {
 async function setOffersWODetails(filterParams = {}) {    
     let offerResp = await getData(OFFER_URL + getOfferFilter(filterParams));
     if (offerResp.ok) {
-        if (Array.isArray(offerResp.data)) {
-            currentOffers = offerResp.data;
-            allOffersLength = offerResp.data.length;
-        } else {
-            allOffersLength = offerResp.data.count;
-            currentOffers = offerResp.data.results;
-        }
+        setCurrentOffersFromResponse(offerResp.data);
     }
     return offerResp;
+}
+
+function setCurrentOffersFromResponse(data) {
+    if (Array.isArray(data)) {
+        currentOffers = data;
+        allOffersLength = data.length;
+        return;
+    }
+
+    currentOffers = Array.isArray(data?.results) ? data.results : [];
+    allOffersLength = Number.isInteger(data?.count) ? data.count : currentOffers.length;
 }
 
 function getOfferFilter(params = {}) {
@@ -49,6 +48,10 @@ async function setSingleOffer(id) {
 }
 
 async function setSingleOfferDetail() {
+    if (!currentSingleOffer || !Array.isArray(currentSingleOffer.details)) {
+        return;
+    }
+
     for (let j = 0; j < currentSingleOffer.details.length; j++) {
         const offerdetail = currentSingleOffer.details[j];
         const offerdetailResp = await getData(OFFER_DETAIL_URL + offerdetail.id + "/");
@@ -57,6 +60,11 @@ async function setSingleOfferDetail() {
 }
 
 async function setOfferDetails() {
+    if (!Array.isArray(currentOffers)) {
+        currentOffers = [];
+        return;
+    }
+
     for (let i = 0; i < currentOffers.length; i++) {
         const offer = currentOffers[i];
 
