@@ -9,8 +9,13 @@ let allOffersLength=null;
 async function setOffers(filterParams = {}) {
     let offerResp = await getData(OFFER_URL + getOfferFilter(filterParams));
     if (offerResp.ok) {
-        allOffersLength = offerResp.data.count
-        currentOffers = offerResp.data.results;
+        if (Array.isArray(offerResp.data)) {
+            currentOffers = offerResp.data;
+            allOffersLength = offerResp.data.length;
+        } else {
+            allOffersLength = offerResp.data.count;
+            currentOffers = offerResp.data.results;
+        }
         await setOfferDetails();
     }
     return offerResp;
@@ -19,8 +24,13 @@ async function setOffers(filterParams = {}) {
 async function setOffersWODetails(filterParams = {}) {    
     let offerResp = await getData(OFFER_URL + getOfferFilter(filterParams));
     if (offerResp.ok) {
-        allOffersLength = offerResp.data.count
-        currentOffers = offerResp.data.results;
+        if (Array.isArray(offerResp.data)) {
+            currentOffers = offerResp.data;
+            allOffersLength = offerResp.data.length;
+        } else {
+            allOffersLength = offerResp.data.count;
+            currentOffers = offerResp.data.results;
+        }
     }
     return offerResp;
 }
