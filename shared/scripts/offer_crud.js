@@ -59,10 +59,15 @@ async function setSingleOfferDetail() {
 async function setOfferDetails() {
     for (let i = 0; i < currentOffers.length; i++) {
         const offer = currentOffers[i];
+
+        if (!offer.details || !Array.isArray(offer.details)) {
+            offer.details = [];
+        }
+
         for (let j = 0; j < offer.details.length; j++) {
             const offerdetail = offer.details[j];
             const offerdetailResp = await getData(OFFER_DETAIL_URL + offerdetail.id + "/");
-            offer.details[j] = offerdetailResp.data
+            offer.details[j] = offerdetailResp.data;
         }
     }
 }
