@@ -82,29 +82,28 @@ function formatDate(dateString) {
     return formattedDate.replace(',', '');
 }
 
-function getPersonImgPath(filepath) {
-    if (filepath) {
-        if (filepath.startsWith('http')) {
-            return filepath;
-        } else {
-            return MEDIA_URL + filepath;
+function getMediaPath(filepath, fallbackPath) {
+    if (!filepath) {
+        return fallbackPath;
+    }
+
+    try {
+        const mediaUrl = new URL(filepath, MEDIA_URL);
+        if (mediaUrl.protocol === 'http:') {
+            mediaUrl.protocol = 'https:';
         }
-    } else {
-        return "./assets/icons/profile_pic.svg";
+        return mediaUrl.href;
+    } catch {
+        return fallbackPath;
     }
 }
 
-function getOfferImgPath(filepath) {
-    if (filepath) {
-        if (filepath.startsWith('http')) {
-            return filepath;
-        } else {
-            return MEDIA_URL + filepath;
-        }
-    } else {
-        return "./assets/img/placeholder.jpg";
-    }
+function getPersonImgPath(filepath) {
+    return getMediaPath(filepath, "./assets/icons/profile_pic.svg");
 }
+
+function getOfferImgPath(filepath) {
+    return getMediaPath(filepath, "./assets/img/placeholder.jpg");
 }
 
 function showToastMessage(error = true, msg = []) {
