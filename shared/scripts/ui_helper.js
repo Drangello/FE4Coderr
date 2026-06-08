@@ -85,25 +85,26 @@ function formatDate(dateString) {
 function getPersonImgPath(filepath) {
     if (filepath) {
         if (filepath.startsWith('http')) {
-            return filepath
+            return filepath;
         } else {
-            return STATIC_BASE_URL + filepath
+            return MEDIA_URL + filepath;
         }
     } else {
-        return "./assets/icons/profile_pic.svg"
+        return "./assets/icons/profile_pic.svg";
     }
 }
 
 function getOfferImgPath(filepath) {
     if (filepath) {
         if (filepath.startsWith('http')) {
-            return filepath
+            return filepath;
         } else {
-            return STATIC_BASE_URL + filepath
+            return MEDIA_URL + filepath;
         }
     } else {
-        return "./assets/img/placeholder.jpg"
+        return "./assets/img/placeholder.jpg";
     }
+}
 }
 
 function showToastMessage(error = true, msg = []) {

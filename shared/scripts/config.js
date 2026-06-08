@@ -9,7 +9,8 @@ const GUEST_LOGINS = {
     }
 }
 const API_BASE_URL = 'https://api.coderrfw.de/api/';
-const STATIC_BASE_URL = 'https://api.coderrfw.de/';
+const STATIC_BASE_URL = '';
+const MEDIA_URL = '/media/';
 
 
 const LOGIN_URL = 'login/';
