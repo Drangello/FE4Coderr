@@ -69,7 +69,7 @@ function getCustomerProfileTemplate() {
                 <h1 class="font_prime_color">Mein Profil</h1>
                 <div class="d_flex_cs_gxl profile_customer">
                     <div class="d_flex_cc_gm f_d_c">
-                        <img class="profile_img_l" src="${getPersonImgPath(
+                        <img class="profile_img_l" onerror="useImageFallback(this, './assets/icons/profile_pic.svg')" src="${getPersonImgPath(
                           currentUser.file
                         )}" alt="Profilbild">
                     </div>

@@ -249,7 +249,7 @@ function getBusinessProfileTemplate(currentUser) {
                     </button>
                     <div class="d_flex_cs_gm f_d_c profile_detail">
                         <h1 class="font_prime_color w_full">Mein Profil</h1>
-                        <img class="profile_img" src="${getPersonImgPath(
+                        <img class="profile_img" onerror="useImageFallback(this, './assets/icons/profile_pic.svg')" src="${getPersonImgPath(
                           currentUser.file
                         )}" alt="Profilbild">
                         <div class="w_full">

@@ -1,5 +1,5 @@
 function getLogedInHeaderTemplate() {
-    return `<img onclick="toggleOpen(this); stopProp(event)" closable="true" open="false" class="profile_img_small" src="${getPersonImgPath(currentUser.file)}" alt="Profilbild">
+    return `<img onclick="toggleOpen(this); stopProp(event)" onerror="useImageFallback(this, './assets/icons/profile_pic.svg')" closable="true" open="false" class="profile_img_small" src="${getPersonImgPath(currentUser.file)}" alt="Profilbild">
             <div class="menu_content d_flex_cc_gm f_d_c">
                 <a href="./own_profile.html">Mein Profil</a>
                 <p onclick="logOut()">Ausloggen</p>

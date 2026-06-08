@@ -88,7 +88,14 @@ function getMediaPath(filepath, fallbackPath) {
     }
 
     try {
-        const mediaUrl = new URL(filepath, MEDIA_URL);
+        const mediaUrl = new URL(filepath, API_BASE_URL);
+        const legacyMediaPath = '/media/';
+
+        if (mediaUrl.origin === new URL(API_BASE_URL).origin &&
+            mediaUrl.pathname.startsWith(legacyMediaPath)) {
+            mediaUrl.pathname = `/api${mediaUrl.pathname}`;
+        }
+
         if (mediaUrl.protocol === 'http:') {
             mediaUrl.protocol = 'https:';
         }
@@ -104,6 +111,11 @@ function getPersonImgPath(filepath) {
 
 function getOfferImgPath(filepath) {
     return getMediaPath(filepath, "./assets/img/placeholder.jpg");
+}
+
+function useImageFallback(image, fallbackPath) {
+    image.onerror = null;
+    image.src = fallbackPath;
 }
 
 function showToastMessage(error = true, msg = []) {

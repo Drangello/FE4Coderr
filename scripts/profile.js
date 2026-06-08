@@ -251,6 +251,7 @@ async function updateCustomerProfile(formData) {
     closeDialog("customer_dialog");
     document.getElementById("customer_profile").innerHTML =
       getCustomerProfileTemplate();
+    setHeader();
   } else {
     extractErrorMessages(resp.data);
     showToastMessage(true, extractErrorMessages(resp.data));
