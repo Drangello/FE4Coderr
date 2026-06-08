@@ -14,7 +14,7 @@ function closeAllOpenedElements() {
 }
 
 function stopProp(event) {
-    event.stopPropagation()
+    event.stopPropagation();
 }
 
 function closeDialog(id) {
